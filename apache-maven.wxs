@@ -1,0 +1,368 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+    <Package Language="1033" Manufacturer="Apache Software Foundation" Name="Apache Maven" Version="3.9.8" ProductCode="5EBD5737-383A-4C34-BAC0-2761D0444947">
+        <MediaTemplate EmbedCab="yes"/>
+        <Feature Id="apache_maven_bin">
+            <ComponentGroupRef Id="ossFiles"/>
+            <ComponentGroupRef Id="executables"/>
+            <ComponentGroupRef Id="boot"/>
+            <ComponentGroupRef Id="conf"/>
+            <ComponentRef Id="conf_simplelogger"/>
+            <ComponentRef Id="hazelcast"/>
+            <ComponentRef Id="redisson"/>
+            <ComponentRef Id="lib_ext_readme"/>
+            <ComponentGroupRef Id="aopalliance"/>
+            <ComponentGroupRef Id="commons_cli"/>
+            <ComponentGroupRef Id="commons_codec"/>
+            <ComponentGroupRef Id="failureaccess"/>
+            <ComponentGroupRef Id="guava"/>
+            <ComponentGroupRef Id="guice"/>
+            <ComponentGroupRef Id="httpclient"/>
+            <ComponentGroupRef Id="httpcore"/>
+            <ComponentGroupRef Id="jansi"/>
+            <ComponentGroupRef Id="javax"/>
+            <ComponentGroupRef Id="jcl_over_slf4j"/>
+            <ComponentGroupRef Id="maven"/>
+            <ComponentGroupRef Id="org.eclipse.sisu"/>
+            <ComponentGroupRef Id="plexus"/>
+            <ComponentGroupRef Id="slf4j"/>
+            <ComponentGroupRef Id="wagon"/>
+            <ComponentRef Id="jansi_native_readme"/>
+            <ComponentRef Id="jansi_native_arm64"/>
+            <ComponentRef Id="jansi_native_x86_64"/>
+            <ComponentRef Id="jansi_native_x86"/>
+        </Feature>
+        <StandardDirectory Id="ProgramFilesFolder">
+            <Directory Id="INSTALLFOLDER" Name="Maven">
+                <Directory Id="binDir" Name="bin"/>
+                <Directory Id="bootDir" Name="boot"/>
+                <Directory Id="confDir" Name="conf">
+                    <Directory Id="confLoggingDir" Name="logging">
+                        <Component Id="conf_simplelogger">
+                            <File Source="distro/conf/logging/simplelogger.properties"/>
+                        </Component>
+                    </Directory>
+                </Directory>
+                <Directory Id="libDir" Name="lib">
+                    <Directory Name="ext">
+                        <Directory Name="hazelcast">
+                            <Component Id="hazelcast">
+                                <File Source="distro/lib/ext/hazelcast/README.txt"/>
+                            </Component>
+                        </Directory>
+                        <Directory Name="redisson">
+                            <Component Id="redisson">
+                                <File Source="distro/lib/ext/redisson/README.txt"/>
+                            </Component>
+                        </Directory>
+                        <Component Id="lib_ext_readme">
+                            <File Source="distro/lib/ext/README.txt"/>
+                        </Component>
+                    </Directory>
+                    <Directory Name="jansi-native">
+                        <Directory Name="Windows">
+                            <Directory Name="arm64">
+                                <Component Id="jansi_native_arm64">
+                                    <File Source="distro/lib/jansi-native/Windows/arm64/libjansi.so"/>
+                                </Component>
+                            </Directory>
+                            <Directory Name="x86_64">
+                                <Component Id="jansi_native_x86_64">
+                                    <File Source="distro/lib/jansi-native/Windows/x86_64/jansi.dll"/>
+                                </Component>
+                            </Directory>
+                            <Directory Name="x86">
+                                <Component Id="jansi_native_x86">
+                                    <File Source="distro/lib/jansi-native/Windows/x86/jansi.dll"/>
+                                </Component>
+                            </Directory>
+                        </Directory>
+                        <Component Id="jansi_native_readme">
+                            <File Source="distro/lib/jansi-native/README.txt"/>
+                        </Component>
+                    </Directory>
+                </Directory>
+            </Directory>
+        </StandardDirectory>
+        <ComponentGroup Id="ossFiles" Directory="INSTALLFOLDER">
+            <Component Id="license">
+                <File Source="distro/LICENSE"/>
+            </Component>
+            <Component Id="notice">
+                <File Source="distro/NOTICE"/>
+            </Component>
+            <Component Id="readme">
+                <File Source="distro/README.txt"/>
+            </Component>
+        </ComponentGroup>
+        <ComponentGroup Id="executables" Directory="binDir">
+            <Component Id="enviroment" Guid="C061BDA2-5F0F-4A77-A368-798708B28358">
+                <Environment Id="PATH" Name="PATH" Value="[binDir]" Permanent="yes" Part="last" Action="set" System="yes"/>
+            </Component>
+            <Component Id="m2_conf">
+                <File Source="distro/bin/m2.conf"/>
+            </Component>
+            <Component Id="mvn">
+                <File Source="distro/bin/mvn"/>
+            </Component>
+            <Component Id="mvn_cmd">
+                <File Source="distro/bin/mvn.cmd"/>
+            </Component>
+            <Component Id="mvnDebug">
+                <File Source="distro/bin/mvnDebug"/>
+            </Component>
+            <Component Id="mvnDebug_cmd">
+                <File Source="distro/bin/mvnDebug.cmd"/>
+            </Component>
+            <Component Id="executables">
+                <File Source="distro/bin/mvnyjp"/>
+            </Component>
+        </ComponentGroup>
+        <ComponentGroup Id="boot" Directory="bootDir">
+            <Component Id="plexusClassworlds">
+                <File Source="distro/boot/plexus-classworlds-2.8.0.jar"/>
+            </Component>
+            <Component Id="plexusClassworldsLicense">
+                <File Source="distro/boot/plexus-classworlds.license"/>
+            </Component>
+        </ComponentGroup>
+        <ComponentGroup Id="conf" Directory="confDir">
+            <Component Id="settingsXml">
+                <File Source="distro/conf/settings.xml"/>
+            </Component>
+            <Component Id="toolchainsXml">
+                <File Source="distro/conf/toolchains.xml"/>
+            </Component>
+        </ComponentGroup>
+        <ComponentGroup Id="aopalliance" Directory="libDir">
+            <Component Id="aopallianceJar">
+                <File Source="distro/lib/aopalliance-1.0.jar"/>
+            </Component>
+            <Component Id="aopallianceLicense">
+                <File Source="distro/lib/aopalliance.license"/>
+            </Component>
+        </ComponentGroup>
+        <ComponentGroup Id="commons_cli" Directory="libDir">
+            <Component Id="commons_cliJar">
+                <File Source="distro/lib/commons-cli-1.8.0.jar"/>
+            </Component>
+            <Component Id="commons_cliLicense" Directory="libDir">
+                <File Source="distro/lib/commons-cli.license"/>
+            </Component>
+        </ComponentGroup>
+        <ComponentGroup Id="commons_codec" Directory="libDir">
+            <Component Id="commons_codecJar">
+                <File Source="distro/lib/commons-codec-1.16.1.jar"/>
+            </Component>
+            <Component Id="commons_codecLicense">
+                <File Source="distro/lib/commons-codec.license"/>
+            </Component>
+        </ComponentGroup>
+        <ComponentGroup Id="failureaccess" Directory="libDir">
+            <Component Id="failureaccessJar">
+                <File Source="distro/lib/failureaccess-1.0.2.jar"/>
+            </Component>
+            <Component Id="failureaccessLicense">
+                <File Source="distro/lib/failureaccess.license"/>
+            </Component>
+        </ComponentGroup>
+        <ComponentGroup Id="guava" Directory="libDir">
+            <Component Id="guavaJar">
+                <File Source="distro/lib/guava-33.2.1-jre.jar"/>
+            </Component>
+            <Component Id="guavaLicense">
+                <File Source="distro/lib/guava.license"/>
+            </Component>
+        </ComponentGroup>
+        <ComponentGroup Id="guice" Directory="libDir">
+            <Component Id="guiceJar">
+                <File Source="distro/lib/guice-5.1.0.jar"/>
+            </Component>
+            <Component Id="guiceLicense">
+                <File Source="distro/lib/guice.license"/>
+            </Component>
+        </ComponentGroup>
+        <ComponentGroup Id="httpclient" Directory="libDir">
+            <Component Id="httpclientJar">
+                <File Source="distro/lib/httpclient-4.5.14.jar"/>
+            </Component>
+            <Component Id="httpclientLicense">
+                <File Source="distro/lib/httpclient.license"/>
+            </Component>
+        </ComponentGroup>
+        <ComponentGroup Id="httpcore" Directory="libDir">
+            <Component Id="httpcoreJar">
+                <File Source="distro/lib/httpcore-4.4.16.jar"/>
+            </Component>
+            <Component Id="httpcoreLicense">
+                <File Source="distro/lib/httpcore.license"/>
+            </Component>
+        </ComponentGroup>
+        <ComponentGroup Id="jansi" Directory="libDir">
+            <Component Id="jansiJar">
+                <File Source="distro/lib/jansi-2.4.1.jar"/>
+            </Component>
+            <Component Id="jansiLicense">
+                <File Source="distro/lib/jansi.license"/>
+            </Component>
+        </ComponentGroup>
+        <ComponentGroup Id="javax" Directory="libDir">
+            <File Source="distro/lib/javax.annotation-api-1.3.2.jar"/>
+            <File Source="distro/lib/javax.annotation-api.license"/>
+            <File Source="distro/lib/javax.inject-1.jar"/>
+            <File Source="distro/lib/javax.inject.license"/>
+        </ComponentGroup>
+        <ComponentGroup Id="jcl_over_slf4j" Directory="libDir">
+            <Component Id="jcl_over_slf4jJar">
+                <File Source="distro/lib/jcl-over-slf4j-1.7.36.jar"/>
+            </Component>
+            <Component Id="jcl_over_slf4jLicense">
+                <File Source="distro/lib/jcl-over-slf4j.license"/>
+            </Component>
+        </ComponentGroup>
+        <ComponentGroup Id="maven" Directory="libDir">
+            <Component Id="maven_artifactJar">
+                <File Source="distro/lib/maven-artifact-3.9.8.jar"/>
+            </Component>
+            <Component Id="maven_builder_supportJar">
+                <File Source="distro/lib/maven-builder-support-3.9.8.jar"/>
+            </Component>
+            <Component Id="maven_compatJar">
+                <File Source="distro/lib/maven-compat-3.9.8.jar"/>
+            </Component>
+            <Component Id="maven_coreJar">
+                <File Source="distro/lib/maven-core-3.9.8.jar"/>
+            </Component>
+            <Component Id="maven_embedderJar">
+                <File Source="distro/lib/maven-embedder-3.9.8.jar"/>
+            </Component>
+            <Component Id="maven_modelJar">
+                <File Source="distro/lib/maven-model-3.9.8.jar"/>
+            </Component>
+            <Component Id="maven_model_builderJar">
+                <File Source="distro/lib/maven-model-builder-3.9.8.jar"/>
+            </Component>
+            <Component Id="maven_plugin_apiJar">
+                <File Source="distro/lib/maven-plugin-api-3.9.8.jar"/>
+            </Component>
+            <Component Id="maven_repository_metadataJar">
+                <File Source="distro/lib/maven-repository-metadata-3.9.8.jar"/>
+            </Component>
+            <Component Id="maven_settingsJar">
+                <File Source="distro/lib/maven-settings-3.9.8.jar"/>
+            </Component>
+            <Component Id="maven_settings_builderJar">
+                <File Source="distro/lib/maven-settings-builder-3.9.8.jar"/>
+            </Component>
+            <Component Id="maven_slf4j_providerJar">
+                <File Source="distro/lib/maven-slf4j-provider-3.9.8.jar"/>
+            </Component>
+            <Component Id="maven_resolver_apiJar">
+                <File Source="distro/lib/maven-resolver-api-1.9.20.jar"/>
+            </Component>
+            <Component Id="maven_resolver_connector_basicJar">
+                <File Source="distro/lib/maven-resolver-connector-basic-1.9.20.jar"/>
+            </Component>
+            <Component Id="maven_resolver_implJar">
+                <File Source="distro/lib/maven-resolver-impl-1.9.20.jar"/>
+            </Component>
+            <Component Id="maven_resolver_named_locksJar">
+                <File Source="distro/lib/maven-resolver-named-locks-1.9.20.jar"/>
+            </Component>
+            <Component Id="maven_resolver_providerJar">
+                <File Source="distro/lib/maven-resolver-provider-3.9.8.jar"/>
+            </Component>
+            <Component Id="maven_resolver_spiJar">
+                <File Source="distro/lib/maven-resolver-spi-1.9.20.jar"/>
+            </Component>
+            <Component Id="maven_resolver_transport_fileJar">
+                <File Source="distro/lib/maven-resolver-transport-file-1.9.20.jar"/>
+            </Component>
+            <Component Id="maven_resolver_transport_httpJar">
+                <File Source="distro/lib/maven-resolver-transport-http-1.9.20.jar"/>
+            </Component>
+            <Component Id="maven_resolver_transport_wagonJar">
+                <File Source="distro/lib/maven-resolver-transport-wagon-1.9.20.jar"/>
+            </Component>
+            <Component Id="maven_resolver_utilJar">
+                <File Source="distro/lib/maven-resolver-util-1.9.20.jar"/>
+            </Component>
+            <Component Id="maven_shared_utilsJar">
+                <File Source="distro/lib/maven-shared-utils-3.4.2.jar"/>
+            </Component>
+        </ComponentGroup>
+        <ComponentGroup Id="org.eclipse.sisu" Directory="libDir">
+            <Component Id="org.eclipse.sisu.inject.jar">
+                <File Source="distro/lib/org.eclipse.sisu.inject-0.9.0.M3.jar"/>
+            </Component>
+            <Component Id="org.eclipse.sisu.inject.license">
+                <File Source="distro/lib/org.eclipse.sisu.inject.license"/>
+            </Component>
+            <Component Id="org.eclipse.sisu.plexus.jar">
+                <File Source="distro/lib/org.eclipse.sisu.plexus-0.9.0.M3.jar"/>
+            </Component>
+            <Component Id="org.eclipse.sisu.plexus.license">
+                <File Source="distro/lib/org.eclipse.sisu.plexus.license"/>
+            </Component>
+        </ComponentGroup>
+        <ComponentGroup Id="plexus" Directory="libDir">
+            <Component Id="plexusCipherJar">
+                <File Source="distro/lib/plexus-cipher-2.0.jar"/>
+            </Component>
+            <Component Id="plexusCipherLicense">
+                <File Source="distro/lib/plexus-cipher.license"/>
+            </Component>
+            <Component Id="plexusComponentAnnotationsJar">
+                <File Source="distro/lib/plexus-component-annotations-2.1.0.jar"/>
+            </Component>
+            <Component Id="plexusComponentAnnotationsLicense">
+                <File Source="distro/lib/plexus-component-annotations.license"/>
+            </Component>
+            <Component Id="plexusInterpolationJar">
+                <File Source="distro/lib/plexus-interpolation-1.27.jar"/>
+            </Component>
+            <Component Id="plexusInterpolationLicense">
+                <File Source="distro/lib/plexus-interpolation.license"/>
+            </Component>
+            <Component Id="plexusSecDispatcherJar">
+                <File Source="distro/lib/plexus-sec-dispatcher-2.0.jar"/>
+            </Component>
+            <Component Id="plexusSecDispatcherLicense">
+                <File Source="distro/lib/plexus-sec-dispatcher.license"/>
+            </Component>
+            <Component Id="plexusUtilsJar">
+                <File Source="distro/lib/plexus-utils-3.5.1.jar"/>
+            </Component>
+            <Component Id="plexusUtilsLicense">
+                <File Source="distro/lib/plexus-utils.license"/>
+            </Component>
+            <Component Id="plexusXmlJar">
+                <File Source="distro/lib/plexus-xml-3.0.0.jar"/>
+            </Component>
+            <Component Id="plexusXmlLicense">
+                <File Source="distro/lib/plexus-xml.license"/>
+            </Component>
+        </ComponentGroup>
+        <ComponentGroup Id="slf4j" Directory="libDir">
+            <Component Id="slf4j_apiJar">
+                <File Source="distro/lib/slf4j-api-1.7.36.jar"/>
+            </Component>
+            <Component Id="slf4j_apiLicense">
+                <File Source="distro/lib/slf4j-api.license"/>
+            </Component>
+        </ComponentGroup>
+        <ComponentGroup Id="wagon" Directory="libDir">
+            <Component Id="wagon_fileJar">
+                <File Source="distro/lib/wagon-file-3.5.3.jar"/>
+            </Component>
+            <Component Id="wagon_httpJar">
+                <File Source="distro/lib/wagon-http-3.5.3.jar"/>
+            </Component>
+            <Component Id="wagon_http_sharedJar">
+                <File Source="distro/lib/wagon-http-shared-3.5.3.jar"/>
+            </Component>
+            <Component Id="wagon_provider_api_jar">
+                <File Source="distro/lib/wagon-provider-api-3.5.3.jar"/>
+            </Component>
+        </ComponentGroup>
+    </Package>
+</Wix>

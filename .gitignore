@@ -1,0 +1,7 @@
+*.zip
+wix/
+*.wixobj
+*.wixpdb
+*.msi
+distro/
+*.sha512
