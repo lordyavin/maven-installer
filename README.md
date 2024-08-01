@@ -5,6 +5,7 @@
 To build [minimum installer](Product.wxs) run in PowerShell as Administrator:
 ```PowerShell
 winget install WiXToolset.WiXToolset WiXToolset.WiXCLI
+.\build.ps1 -version <maven-version>
 ```
 
 ## Credits
