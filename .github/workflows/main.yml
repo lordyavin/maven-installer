@@ -14,6 +14,8 @@ jobs:
         uses: microsoft/setup-msbuild@v1.1
       - name: Install WiX
         run: dotnet tool install --global wix
+      - name: Check out repository code
+        uses: actions/checkout@v4
       - name: Build WiX on Windows
         shell: powershell
-        run: build.ps1
+        run: ./build.ps1 -version 3.9.8
