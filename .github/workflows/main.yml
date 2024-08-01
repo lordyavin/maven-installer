@@ -16,4 +16,4 @@ jobs:
         run: dotnet tool install --global wix
       - name: Build WiX on Windows
         shell: powershell
-        run: .\build.ps1
+        run: ./build.ps1 -version 3.9.8
