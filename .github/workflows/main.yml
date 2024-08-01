@@ -1,0 +1,17 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: [windows-latest]
+  steps:
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.1
+    - name: Install WiX
+      run: dotnet tool install --global wix
+    - name: Build WiX on Windows
+      run: wix build .\nexus.wxs
