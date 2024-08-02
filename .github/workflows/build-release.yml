@@ -1,4 +1,6 @@
+name: build-release
 on:
+  workflow_dispatch:
   push:
     tags:
       - '*'
@@ -10,26 +12,11 @@ jobs:
       maven-version: "3.9.8"
   release:
     runs-on: ubuntu-latest
-    steps:    
-      - name: release
-        uses: actions/create-release@v1
-        id: create_release
-        with:
-          draft: false
-          prerelease: false
-          release_name: v3.9.8
-          tag_name: ${{ github.ref }}
-          body_path: CHANGELOG.md
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+    steps:
       - uses: actions/download-artifact@v4
         with: 
-          name: apache-maven-3.9.8.msi          
-      - name: upload installer
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+          name: apache-maven-3.9.8.msi              
+      - uses: ncipollo/release-action@v1
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./apache-maven-3.9.8.msi
-          asset_name: apache-maven-3.9.8.msi          
+          artifacts: "apache-maven-3.9.8.msi"
+          omitBody: true
