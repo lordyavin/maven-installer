@@ -10,17 +10,17 @@ jobs:
   build:
     runs-on: [windows-latest]
     steps:
-      - name: Add msbuild to PATH
+      - name: Setup MS Build
         uses: microsoft/setup-msbuild@v2
       - name: Install WiX
         run: dotnet tool install --global wix
       - name: Check out repository code
         uses: actions/checkout@v4
-      - name: Build WiX on Windows
+      - name: Build Installer
         shell: powershell
         run: ./build.ps1 -version ${{ inputs.maven-version }}
       - name: Archive installer
         uses: actions/upload-artifact@v4
         with:
-          name: apache-maven-3.9.8.msi
-          path: ./apache-maven-3.9.8.msi
+          name: apache-maven-${{ inputs.maven-version }}.msi
+          path: ./apache-maven-${{ inputs.maven-version }}.msi
