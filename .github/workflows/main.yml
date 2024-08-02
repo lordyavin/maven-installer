@@ -19,3 +19,8 @@ jobs:
       - name: Build WiX on Windows
         shell: powershell
         run: ./build.ps1 -version 3.9.8
+      - name: Archive installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: apache-maven-3.9.8.msi
+          path: ./apache-maven-3.9.8.msi
