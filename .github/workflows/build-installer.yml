@@ -1,0 +1,26 @@
+name: Build Installer
+
+on:
+  workflow_call:
+    inputs:
+      maven-version:
+        required: true
+        type: string
+jobs:
+  build:
+    runs-on: [windows-latest]
+    steps:
+      - name: Setup MS Build
+        uses: microsoft/setup-msbuild@v2
+      - name: Install WiX
+        run: dotnet tool install --global wix
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Build Installer
+        shell: powershell
+        run: ./build.ps1 -version ${{ inputs.maven-version }}
+      - name: Archive installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: apache-maven-${{ inputs.maven-version }}.msi
+          path: ./apache-maven-${{ inputs.maven-version }}.msi
