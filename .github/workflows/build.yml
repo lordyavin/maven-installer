@@ -1,11 +1,11 @@
 name: Build
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-
+  workflow_call:
+    inputs:
+      maven-version:
+        required: true
+        type: string
 jobs:
   build:
     runs-on: [windows-latest]
@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Build WiX on Windows
         shell: powershell
-        run: ./build.ps1 -version 3.9.8
+        run: ./build.ps1 -version ${{ inputs.maven-version }}
       - name: Archive installer
         uses: actions/upload-artifact@v4
         with:
