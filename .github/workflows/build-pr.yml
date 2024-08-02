@@ -4,6 +4,6 @@ on:
 
 jobs:
   pull-request:
-    uses: ./.github/workflows/build.yml
+    uses: ./.github/workflows/build-installer.yml
     with:
       maven-version: "3.9.8"
