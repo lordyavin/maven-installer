@@ -1,3 +1,4 @@
+name: Build Pull-Request
 on:
   push:
     branches:
